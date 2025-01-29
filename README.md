@@ -15,14 +15,14 @@
 
 ## Технологии
 ### Frontend:
-- **React** (интерфейс пользователя)
-- **CSS (Tailwind, UserDashboard.css)**
+- **React**
+- **CSS**
 
 ### Backend:
-- **FastAPI** (основной сервер)
-- **PostgreSQL** (база данных)
-- **SQLAlchemy + Alembic** (ORM и миграции)
-- **Auth JWT** (аутентификация)
+- **FastAPI**
+- **PostgreSQL**
+- **SQLAlchemy + Alembic**
+- **Auth JWT**
 
 ## Установка и запуск
 ### 1. Клонирование репозитория
