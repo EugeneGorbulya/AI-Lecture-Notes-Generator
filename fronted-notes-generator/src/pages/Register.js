@@ -1,7 +1,6 @@
-// src/pages/Register.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Auth.css'; // Общие стили для Login и Register
+import '../styles/Auth.css';
 
 function Register() {
   const navigate = useNavigate();

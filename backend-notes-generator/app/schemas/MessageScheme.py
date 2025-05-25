@@ -9,6 +9,7 @@ class MessageCreate(BaseModel):
     previous_message_id: Optional[int] = None
     chat_id: int
 
+
 class MessageResponse(BaseModel):
     id: int
     type: MessageType
@@ -16,6 +17,7 @@ class MessageResponse(BaseModel):
     url: Optional[str] = None
     previous_message_id: Optional[int] = None
     chat_id: int
+    sender: str
 
     class Config:
         from_attributes = True

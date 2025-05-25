@@ -1,37 +1,40 @@
-/* src/styles/Auth.css */
-
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to bottom right, #1e90ff, #87cefa);
-  color: #fff;
+  background: linear-gradient(to bottom right, #064e3b, #10b981); /* emerald-900 → emerald-400 */
+  color: #f0fdf4;
 }
 
 .auth-container {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   text-align: center;
+  backdrop-filter: blur(10px);
 }
 
 h2 {
   font-size: 2rem;
   margin-bottom: 20px;
+  color: #d1fae5;
 }
 
 .form-group {
   margin-bottom: 15px;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 5px;
   font-size: 1rem;
+  color: #bbf7d0;
 }
 
 .form-group input {
@@ -40,14 +43,16 @@ h2 {
   font-size: 1rem;
   border: none;
   border-radius: 5px;
+  background-color: #d1fae5;
+  color: #064e3b;
 }
 
 button {
   padding: 10px 20px;
   font-size: 1rem;
   font-weight: bold;
-  color: #1e90ff;
-  background: #fff;
+  color: #064e3b;
+  background: #a7f3d0;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -55,17 +60,17 @@ button {
 }
 
 button:hover {
-  background: #1e90ff;
-  color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  background: #065f46;
+  color: #ecfdf5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .link {
-  color: #fff;
+  color: #bbf7d0;
   text-decoration: underline;
   cursor: pointer;
 }
 
 .link:hover {
-  color: #ffd700;
+  color: #facc15;
 }

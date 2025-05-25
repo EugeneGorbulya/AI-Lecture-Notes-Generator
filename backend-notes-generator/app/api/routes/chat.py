@@ -32,4 +32,4 @@ async def list_chats(
 ):
     result = await db.execute(select(Chat).filter(Chat.owner_id == current_user.id))
     chats = result.scalars().all()
-    return [ChatResponse.from_orm(chat) for chat in chats]  # Преобразуем данные через Pydantic
+    return [ChatResponse.from_orm(chat) for chat in chats]

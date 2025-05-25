@@ -19,7 +19,7 @@ class Message(Base):
     url = Column(String, nullable=True)
     previous_message_id = Column(Integer, ForeignKey("messages.id"), nullable=True)
     chat_id = Column(Integer, ForeignKey("chats.id"), nullable=False)
-
+    sender = Column(String, nullable=False, default="user")
     chat = relationship("Chat", back_populates="messages")
 
     previous_message = relationship("Message", remote_side=[id])

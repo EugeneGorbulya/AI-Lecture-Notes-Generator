@@ -10,7 +10,9 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 6000
     REFRESH_TOKEN_EXPIRE_MINUTES: int = 6000
+    OPENAI_API_URL: str = "http://localhost:1234/v1/chat/completions"
     class Config:
         env_file = ".env"
+        extra = "ignore"
 
 settings = Settings()

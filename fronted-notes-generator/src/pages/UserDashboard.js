@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { getUserId, getToken, saveUserId } from "../utils/auth";
 import "../styles/UserDashboard.css";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 function UserDashboard() {
   const [chats, setChats] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -20,7 +22,7 @@ function UserDashboard() {
           return;
         }
 
-        const response = await fetch("http://127.0.0.1:8000/api/users/me", {
+        const response = await fetch(`${API_URL}/api/users/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -45,7 +47,7 @@ function UserDashboard() {
       }
 
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/chats", {
+        const response = await fetch(`${API_URL}/api/chats`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -73,7 +75,7 @@ function UserDashboard() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/message/${chatId}/`,
+        `${API_URL}/api/message/${chatId}/`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -110,7 +112,7 @@ function UserDashboard() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/chats/?user_id=${userId}&name=${newChatName}`,
+        `${API_URL}/api/chats/?user_id=${userId}&name=${newChatName}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -141,7 +143,7 @@ function UserDashboard() {
   };
 
   const handleFileDownload = (fileUrl, fileName) => {
-    const apiUrl = "http://127.0.0.1:8000/api/message/static/"; // Ваш базовый путь
+    const apiUrl = `${API_URL}/api/message/static/`;
     const fullUrl = `${apiUrl}${fileName}`;
 
     const anchor = document.createElement("a");
@@ -150,33 +152,30 @@ function UserDashboard() {
     document.body.appendChild(anchor);
     anchor.click();
     document.body.removeChild(anchor);
-};
-
-
-
+  };
 
   const handleFileUpload = async (e) => {
     if (!selectedChat) {
       alert("Please select a chat before uploading a file.");
       return;
     }
-
+  
     const token = getToken();
     if (!token) {
       console.error("No access token found");
       return;
     }
-
+  
     const uploadedFile = e.target.files[0];
     if (!uploadedFile) return;
-
+  
     const formData = new FormData();
-    formData.append("file", uploadedFile); // Загружаемый файл
-    formData.append("type", "VIDEO"); // Тип сообщения
-
+    formData.append("file", uploadedFile);
+    formData.append("type", "VIDEO");
+  
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/message/${selectedChat.id}/file`,
+        `${API_URL}/api/message/${selectedChat.id}/file`,
         {
           method: "POST",
           headers: {
@@ -185,10 +184,9 @@ function UserDashboard() {
           body: formData,
         }
       );
-
+  
       if (response.ok) {
-        const newMessage = await response.json();
-        setMessages([...messages, newMessage]); // Добавляем новое сообщение в список
+        await fetchMessages(selectedChat.id);  // 💬 обновляем сообщения из бэка
       } else {
         const errorData = await response.json();
         console.error("Error uploading file:", errorData);
@@ -198,10 +196,9 @@ function UserDashboard() {
       console.error("Error uploading file:", error);
       alert(`An unexpected error occurred: ${error.message}`);
     } finally {
-      e.target.value = null; // Сброс input-файла
+      e.target.value = null;
     }
-  };
-
+  };  
 
   const handleSendMessage = async () => {
     if (!input.trim() || !selectedChat) {
@@ -223,7 +220,7 @@ function UserDashboard() {
       };
 
       const response = await fetch(
-        `http://127.0.0.1:8000/api/message/${selectedChat.id}/`,
+        `${API_URL}/api/message/${selectedChat.id}/`,
         {
           method: "POST",
           headers: {

@@ -1,8 +1,7 @@
-// src/pages/Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/Auth.css'; // Общие стили для Login и Register
+import '../styles/Auth.css';
 
 function Login() {
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ function Login() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    setLoading(true); // Включаем индикатор загрузки
+    setLoading(true);
     try {
       const formData = new URLSearchParams();
       formData.append('username', username);
@@ -72,16 +71,16 @@ function Login() {
             type="password"
             placeholder="Enter your password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)} // Обновляем password
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        {error && <p className="error">{error}</p>} {/* Отображение ошибки */}
+        {error && <p className="error">{error}</p>} {}
         <button type="submit" disabled={loading}>
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
-      {loading && <div className="loading-spinner"></div>} {/* Индикатор загрузки */}
+      {loading && <div className="loading-spinner"></div>} {}
       <p>
         Don't have an account?{' '}
         <span className="link" onClick={() => navigate('/register')}>

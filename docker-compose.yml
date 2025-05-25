@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: engorgen
+      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_DB: backend_notes
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend-notes-generator
+    env_file:
+      - ./backend-notes-generator/.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - ollama
+    volumes:
+      - ./backend-notes-generator/files:/app/files
+      - ./backend-notes-generator/app/api/files:/app/app/api/files
+    environment:
+      - OPENAI_API_URL=http://ollama:11434/v1/chat/completions
+
+  frontend:
+    build: ./fronted-notes-generator
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://backend:8000
+
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    entrypoint: ["/bin/sh", "-c"]
+    command: >
+      "ollama serve & sleep 5 && ollama pull qwen:0.5b && tail -f /dev/null"
+
+
+
+
+volumes:
+  ollama_data:
+  postgres_data:
